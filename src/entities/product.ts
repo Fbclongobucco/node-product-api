@@ -18,6 +18,16 @@ export class Product{
         })
     }
 
+    public static with(id: string, name: string, price: number, quantity: number){
+        return new Product({
+            id,
+            name,
+            price,
+            quantity,
+        }
+        )
+    }
+
     public get id(){
         return this.props.id;
     }
@@ -34,7 +44,7 @@ export class Product{
         return this.props.quantity;
     }
 
-    public increaseStock(amount: number){
+    public buy(amount: number){
         this.props.quantity += amount;
     }
 
