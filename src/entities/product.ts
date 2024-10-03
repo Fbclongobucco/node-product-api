@@ -1,7 +1,9 @@
+import { Decimal } from "@prisma/client/runtime/library";
+
 export type ProductProps = {
     id: string,
     name: string,
-    price: number,
+    price: Decimal,
     quantity: number
 }
 
@@ -9,7 +11,7 @@ export class Product{
     private constructor(readonly props: ProductProps){
     }
 
-    public static build(name: string, price: number){
+    public static build(name: string, price: Decimal){
         return new Product({
             id: crypto.randomUUID().toString(),
             name,
@@ -18,7 +20,10 @@ export class Product{
         })
     }
 
-    public static with(id: string, name: string, price: number, quantity: number){
+    public static with(id: string, name: string, price: Decimal, quantity: number){
+        
+
+
         return new Product({
             id,
             name,

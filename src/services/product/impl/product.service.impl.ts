@@ -1,9 +1,26 @@
+import { Decimal } from "@prisma/client/runtime/library";
 import { ProductRespository } from "../../../repositories/product/product.respository";
-import { BuyOutputDto, ListOutputDto, ProductService, SellOutputDTO } from "../product.service";
+import { BuyOutputDto, CreateOutputDto, ListOutputDto, ProductService, SellOutputDTO } from "../product.service";
+import { Product } from "../../../entities/product";
 
 export class ProductServiceImpl implements ProductService{
    
     private constructor(readonly repository: ProductRespository){     
+    }
+
+    public async create(name: string, price: Decimal): Promise<CreateOutputDto> {
+       
+        const aProduct = Product.build(name, price)
+
+        await this.repository.save(aProduct)
+
+        const output:CreateOutputDto = {
+            id: aProduct.id,
+            balance: aProduct.quantity
+        }
+
+        return output;
+
     }
 
     public static build(repository: ProductRespository){
